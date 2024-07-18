@@ -1,13 +1,12 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
-import { BrowserRouter } from "react-router-dom"
+import { RouterProvider } from "react-router-dom"
 import { Provider } from "react-redux"
 
 import "./index.css"
 
 import { store } from "./store/store"
-import Layout from "./components/Layout"
-import { AppRoutes } from "./libraries/routes/AppRoutes"
+import router from "./libraries/routes"
 
 const container = document.getElementById("root")
 
@@ -22,11 +21,7 @@ const root = createRoot(container)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <Layout>
-          <AppRoutes />
-        </Layout>
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>,
 )

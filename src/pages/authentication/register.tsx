@@ -1,7 +1,7 @@
-import { useAuth } from "../../features/auth/useAuth";
+import { useAuth } from "../../features/auth/useAuth"
 import { RegisterForm } from "./auth-forms/RegisterForm"
 
-export const RegisterPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
   const { register, loading, error } = useAuth()
 
   const handleSubmit = (data: { email: string; password: string }) => {
@@ -12,3 +12,4 @@ export const RegisterPage: React.FC = () => {
     <RegisterForm onSubmit={handleSubmit} loading={loading} error={error} />
   )
 }
+export default RegisterPage

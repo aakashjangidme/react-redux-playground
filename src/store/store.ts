@@ -4,7 +4,6 @@ import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import errorHandler from "../middleware/errorHandler"
 import { authSlice } from "../features/auth/authSlice"
-
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
 const rootReducer = combineSlices(postSlice, authSlice)
@@ -22,6 +21,7 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
       return getDefaultMiddleware().concat(errorHandler)
     },
     preloadedState,
+    devTools: import.meta.env.DEV,
   })
   // configure listeners using the provided defaults
   // optional, but required for `refetchOnFocus`/`refetchOnReconnect` behaviors
