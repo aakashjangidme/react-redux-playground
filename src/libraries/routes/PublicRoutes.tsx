@@ -1,10 +1,10 @@
 import { lazy } from "react"
 import Loadable from "../../components/lazy"
 
-import Dashboard from "../../pages/Dashboard"
 import type { RouteObject } from "react-router-dom"
-import NotFoundPage from "../../pages/NotFoundPage"
+import NotFoundPage from "../../pages/fallback/not-found"
 import DefaultLayout from "../../components/layout/DefaultLayout"
+import Dashboard from "../../pages/dashboard/dashboard"
 
 // Lazy load the authentication pages
 const AuthLogin = Loadable(

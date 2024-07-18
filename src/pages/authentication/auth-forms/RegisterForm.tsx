@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Alert from "../../../components/Alert"
 import Button from "../../../components/Button"
 import TextField from "../../../components/TextField"
-import Spinner from "../../../components/Spinner"
+
 import { LockOutlinedIcon } from "../../../components/LockOutlinedIcon"
 
 interface RegisterFormProps {

@@ -1,4 +1,4 @@
-import Posts from "../features/posts/Posts"
+import Posts from "../../features/posts/Posts"
 
 const Dashboard = () => {
   return (
