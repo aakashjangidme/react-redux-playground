@@ -1,25 +1,32 @@
-export const Button = ({
-  loading,
-  type,
-  title,
-  onClick,
-  disabled,
-}: {
+import Spinner from "./Spinner"
+
+interface ButtonProps {
+  children: React.ReactNode
+  onClick?: () => void
   loading?: boolean
-  type?: string
-  title: string
-  onClick: React.SyntheticEvent | any
   disabled?: boolean
+  type?: "button" | "submit" | "reset"
+  className?: string
+}
+
+const Button: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  loading = false,
+  disabled = false,
+  type = "button",
+  className = "",
 }) => {
   return (
     <button
-      className={
-        loading ? "button is-small is-loading " : "button is-small " + type
-      }
+      type={type}
       onClick={onClick}
-      disabled={disabled}
+      className={`w-full py-2 px-4 text-white rounded ${disabled ? "bg-gray-500" : "bg-blue-500 hover:bg-blue-700"} ${className}`}
+      disabled={disabled || loading}
     >
-      {title}
+      {loading ? <Spinner /> : children}
     </button>
   )
 }
+
+export default Button

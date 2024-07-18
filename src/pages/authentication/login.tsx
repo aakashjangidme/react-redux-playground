@@ -1,5 +1,5 @@
-import { LoginForm } from "../components/LoginForm"
-import { useAuth } from "../features/auth/useAuth"
+import { useAuth } from "../../features/auth/useAuth"
+import { LoginForm } from "./auth-forms/LoginForm";
 
 export const LoginPage: React.FC = () => {
   const { login, loading, error } = useAuth()

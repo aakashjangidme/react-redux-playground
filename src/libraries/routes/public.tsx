@@ -1,6 +1,6 @@
+import { LoginPage } from "../../pages/authentication/login"
+import { RegisterPage } from "../../pages/authentication/register"
 import Dashboard from "../../pages/Dashboard"
-import { RegisterPage } from "../../pages/RegisterPage"
-import { LoginPage } from "../../pages/LoginPage"
 
 export const publicRoutes = [
   {

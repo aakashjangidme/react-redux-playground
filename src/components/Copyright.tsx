@@ -1,20 +1,12 @@
-import { Typography } from "@mui/material"
-import Link from "@mui/material/Link"
-
 export const Copyright = (props: any) => {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
+    <p className="text-center text-gray-500 text-sm" {...props}>
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
+      <a className="text-blue-600" href="https://mui.com/">
         React-Redux Playground
-      </Link>{" "}
+      </a>{" "}
       {new Date().getFullYear()}
       {"."}
-    </Typography>
+    </p>
   )
 }

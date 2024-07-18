@@ -1,5 +1,5 @@
-import { RegisterForm } from "../components/RegisterForm"
-import { useAuth } from "../features/auth/useAuth"
+import { useAuth } from "../../features/auth/useAuth";
+import { RegisterForm } from "./auth-forms/RegisterForm"
 
 export const RegisterPage: React.FC = () => {
   const { register, loading, error } = useAuth()

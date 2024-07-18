@@ -1,56 +1,35 @@
-import {
-  Alert,
-  Box,
-  Card,
-  CardContent,
-  CircularProgress,
-  Container,
-  Stack,
-  Typography,
-} from "@mui/material"
+import Alert from "../../components/Alert"
+import Spinner from "../../components/Spinner"
 import { usePosts } from "./usePosts"
 
-const Posts = () => {
+const Posts: React.FC = () => {
   const { posts, loading, error } = usePosts()
 
   if (loading)
     return (
-      <Container maxWidth={false} disableGutters>
-        <Box sx={{ my: 4 }}>
-          <Stack alignItems="center">
-            <CircularProgress />
-          </Stack>
-        </Box>
-      </Container>
+      <div className="container mx-auto p-4">
+        <div className="my-4 flex justify-center">
+          <Spinner />
+        </div>
+      </div>
     )
 
   if (error) return <Alert severity="error">{error}</Alert>
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Posts
-        </Typography>
-
-        <Card sx={{ minWidth: 275 }}>
+    <div className="container mx-auto p-4">
+      <div className="my-4">
+        <h1 className="text-4xl mb-2">Posts</h1>
+        <div className="bg-white rounded shadow-md p-4">
           {posts.map(post => (
-            <CardContent key={post.id}>
-              <Typography
-                variant="h5"
-                component="h4"
-                color="text.primary"
-                gutterBottom
-              >
-                {post.title}
-              </Typography>
-
-              <Typography component="p">{post.body}</Typography>
-            </CardContent>
+            <div key={post.id} className="mb-4">
+              <h2 className="text-2xl font-semibold mb-2">{post.title}</h2>
+              <p>{post.body}</p>
+            </div>
           ))}
-        </Card>
-      </Box>
-    </Container>
+        </div>
+      </div>
+    </div>
   )
 }
 
