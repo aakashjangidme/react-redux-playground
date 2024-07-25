@@ -1,14 +1,14 @@
-import React from "react"
-import { createRoot } from "react-dom/client"
-import { RouterProvider } from "react-router-dom"
-import { Provider } from "react-redux"
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import { RouterProvider } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
-import "./index.css"
+import './index.css'
 
-import { store } from "./store/store"
-import router from "./libraries/routes"
+import { store } from './store/store'
+import router from './router'
 
-const container = document.getElementById("root")
+const container = document.getElementById('root')
 
 if (!container) {
   throw new Error(

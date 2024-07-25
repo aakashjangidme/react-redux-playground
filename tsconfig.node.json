@@ -3,7 +3,11 @@
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"]
+    }
   },
-  "include": ["vite.config.ts", "src/globals.d.tss"]
+  "include": ["vite.config.ts", "src/globals.d.ts"]
 }

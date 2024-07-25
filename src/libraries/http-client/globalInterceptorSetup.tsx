@@ -1,5 +1,5 @@
-import { setupInterceptorsTo } from "./Interceptors"
+import { setupInterceptorsTo } from './Interceptors'
 
-import httpClient from "."
+import httpClient from '.'
 
 setupInterceptorsTo(httpClient)

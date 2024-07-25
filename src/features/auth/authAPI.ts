@@ -1,23 +1,15 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
+import { createAsyncThunk } from '@reduxjs/toolkit'
 // import httpClient from "../../libraries/http-client"
-import {
-  login,
-  logout,
-  register,
-  setCurrentUser,
-} from "../../services/auth.service"
+import { login, logout, register, setCurrentUser } from 'src/services/authService'
 
-export const userLogin = createAsyncThunk(
-  "auth/login",
-  async (credentials: { email: string; password: string }) => {
-    const response = await login(credentials.email, credentials.password)
-    await setCurrentUser(response)
-    return response
-  },
-)
+export const userLogin = createAsyncThunk('auth/login', async (credentials: { email: string; password: string }) => {
+  const response = await login(credentials.email, credentials.password)
+  await setCurrentUser(response)
+  return response
+})
 
 export const userRegister = createAsyncThunk(
-  "auth/register",
+  'auth/register',
   async (credentials: { email: string; password: string }) => {
     const response = await register(credentials.email, credentials.password)
     await setCurrentUser(response)
@@ -25,7 +17,7 @@ export const userRegister = createAsyncThunk(
   },
 )
 
-export const userLogout = createAsyncThunk("auth/logout", async () => {
+export const userLogout = createAsyncThunk('auth/logout', async () => {
   const response = await logout()
   await setCurrentUser(null)
 

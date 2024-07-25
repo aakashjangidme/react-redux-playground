@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { userLogin, userLogout, userRegister } from "./authAPI"
-import { getCurrentUser } from "../../services/auth.service"
+import { createSlice } from '@reduxjs/toolkit'
+import { userLogin, userLogout, userRegister } from './authAPI'
+import { getCurrentUser } from 'src/services/authService'
 
 const initialState: AuthState = {
   isAuthenticated: getCurrentUser() !== null || getCurrentUser() !== undefined,
@@ -9,12 +9,12 @@ const initialState: AuthState = {
 }
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {},
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-      .addCase(userLogin.pending, state => {
+      .addCase(userLogin.pending, (state) => {
         state.loading = true
         state.error = null
       })
@@ -24,9 +24,9 @@ export const authSlice = createSlice({
       })
       .addCase(userLogin.rejected, (state, action) => {
         state.loading = false
-        state.error = action.error.message || "Failed to sign in"
+        state.error = action.error.message || 'Failed to sign in'
       })
-      .addCase(userRegister.pending, state => {
+      .addCase(userRegister.pending, (state) => {
         state.loading = true
         state.error = null
       })
@@ -36,19 +36,19 @@ export const authSlice = createSlice({
       })
       .addCase(userRegister.rejected, (state, action) => {
         state.loading = false
-        state.error = action.error.message || "Failed to register"
+        state.error = action.error.message || 'Failed to register'
       })
-      .addCase(userLogout.pending, state => {
+      .addCase(userLogout.pending, (state) => {
         state.loading = true
         state.error = null
       })
-      .addCase(userLogout.fulfilled, state => {
+      .addCase(userLogout.fulfilled, (state) => {
         state.loading = false
         state.isAuthenticated = false
       })
       .addCase(userLogout.rejected, (state, action) => {
         state.loading = false
-        state.error = action.error.message || "Failed to register"
+        state.error = action.error.message || 'Failed to register'
       })
   },
 })

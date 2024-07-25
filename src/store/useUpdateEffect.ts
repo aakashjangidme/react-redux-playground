@@ -1,5 +1,5 @@
-import type { EffectCallback, DependencyList, MutableRefObject } from "react"
-import { useEffect, useRef } from "react"
+import type { EffectCallback, DependencyList, MutableRefObject } from 'react'
+import { useEffect, useRef } from 'react'
 
 /**
  * Simulate componentDidUpdate() method of Class Component
@@ -8,10 +8,7 @@ import { useEffect, useRef } from "react"
  * @param effect - Effect callback to be executed on updates
  * @param deps - Dependency array for the effect
  */
-const useUpdateEffect = (
-  effect: EffectCallback,
-  deps: DependencyList = [],
-): void => {
+const useUpdateEffect = (effect: EffectCallback, deps: DependencyList = []): void => {
   const isFirstRender: MutableRefObject<boolean> = useRef(true)
 
   useEffect(() => {

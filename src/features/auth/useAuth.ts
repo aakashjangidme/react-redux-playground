@@ -1,16 +1,14 @@
-import { useLocation, useNavigate } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "../../store/hooks"
-import type { RootState } from "../../store/store"
-import { userLogin, userRegister } from "./authAPI"
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from 'src/store/hooks'
+import type { RootState } from 'src/store/store'
+import { userLogin, userRegister } from './authAPI'
 
 export const useAuth = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
   const dispatch = useAppDispatch()
   const { loading, error } = useAppSelector((state: RootState) => state.auth)
-  const isAuthenticated = useAppSelector(
-    (state: RootState) => state.auth.isAuthenticated,
-  )
+  const isAuthenticated = useAppSelector((state: RootState) => state.auth.isAuthenticated)
 
   const login = async (email: string, password: string) => {
     try {
@@ -19,7 +17,7 @@ export const useAuth = () => {
       if (state?.from) {
         navigate(state?.from)
       } else {
-        navigate("/")
+        navigate('/')
       }
     } catch (error) {
       // Handle error, e.g., show error message

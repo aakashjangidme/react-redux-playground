@@ -9,6 +9,6 @@ export interface PostItem {
 // Define the initial state type
 export interface PostsState {
   data: PostItem[]
-  loading: "idle" | "pending" | "fulfilled" | "rejected"
+  loading: 'idle' | 'pending' | 'fulfilled' | 'rejected'
   error: string | null
 }

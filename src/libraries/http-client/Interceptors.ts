@@ -1,11 +1,5 @@
-import type {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosRequestHeaders,
-  AxiosResponse,
-} from "axios"
-import logger from "../../utils/logger"
+import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
+import logger from 'src/utils/logger'
 
 interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders
@@ -31,9 +25,7 @@ const onResponseError = (error: AxiosError): Promise<AxiosError> => {
   return Promise.reject(error)
 }
 
-export function setupInterceptorsTo(
-  axiosInstance: AxiosInstance,
-): AxiosInstance {
+export function setupInterceptorsTo(axiosInstance: AxiosInstance): AxiosInstance {
   axiosInstance.interceptors.request.use(onRequest, onRequestError)
   axiosInstance.interceptors.response.use(onResponse, onResponseError)
   return axiosInstance

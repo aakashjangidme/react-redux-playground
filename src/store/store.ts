@@ -1,9 +1,9 @@
-import { postSlice } from "../features/posts/postsSlice"
-import type { Action, ThunkAction } from "@reduxjs/toolkit"
-import { combineSlices, configureStore } from "@reduxjs/toolkit"
-import { setupListeners } from "@reduxjs/toolkit/query"
-import errorHandler from "../middleware/errorHandler"
-import { authSlice } from "../features/auth/authSlice"
+import { postSlice } from '../features/posts/postsSlice'
+import type { Action, ThunkAction } from '@reduxjs/toolkit'
+import { combineSlices, configureStore } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query'
+import errorHandler from '../middleware/errorHandler'
+import { authSlice } from '../features/auth/authSlice'
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
 const rootReducer = combineSlices(postSlice, authSlice)
@@ -17,7 +17,7 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
     reducer: rootReducer,
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
-    middleware: getDefaultMiddleware => {
+    middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware().concat(errorHandler)
     },
     preloadedState,
@@ -34,10 +34,5 @@ export const store = makeStore()
 // Infer the type of `store`
 export type AppStore = typeof store
 // Infer the `AppDispatch` type from the store itself
-export type AppDispatch = AppStore["dispatch"]
-export type AppThunk<ThunkReturnType = void> = ThunkAction<
-  ThunkReturnType,
-  RootState,
-  unknown,
-  Action
->
+export type AppDispatch = AppStore['dispatch']
+export type AppThunk<ThunkReturnType = void> = ThunkAction<ThunkReturnType, RootState, unknown, Action>

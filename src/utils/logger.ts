@@ -1,4 +1,5 @@
-import { LOG_LEVEL } from "../config/environment"
+import { LOG_LEVEL } from "src/config/environment"
+
 
 /** Signature of a logging function */
 export interface LogFn {
@@ -13,7 +14,7 @@ export interface Logger {
 }
 
 /** Log levels */
-export type LogLevel = "log" | "warn" | "error"
+export type LogLevel = 'log' | 'warn' | 'error'
 
 const NO_OP: LogFn = (message?: any, ...optionalParams: any[]) => {}
 
@@ -28,7 +29,7 @@ export class ConsoleLogger implements Logger {
 
     this.error = console.error.bind(console)
 
-    if (level === "error") {
+    if (level === 'error') {
       this.warn = NO_OP
       this.log = NO_OP
 
@@ -37,7 +38,7 @@ export class ConsoleLogger implements Logger {
 
     this.warn = console.warn.bind(console)
 
-    if (level === "warn") {
+    if (level === 'warn') {
       this.log = NO_OP
 
       return

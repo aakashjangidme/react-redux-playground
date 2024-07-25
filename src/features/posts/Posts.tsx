@@ -1,6 +1,6 @@
-import Alert from "../../components/Alert"
-import Spinner from "../../components/Spinner"
-import { usePosts } from "./usePosts"
+import Alert from 'src/components/Alert'
+import Spinner from 'src/components/Spinner/Spinner'
+import { usePosts } from './usePosts'
 
 const Posts: React.FC = () => {
   const { posts, loading, error } = usePosts()
@@ -21,7 +21,7 @@ const Posts: React.FC = () => {
       <div className="my-4">
         <h1 className="text-4xl mb-2">Posts</h1>
         <div className="bg-white rounded shadow-md p-4">
-          {posts.map(post => (
+          {posts.map((post) => (
             <div key={post.id} className="mb-4">
               <h2 className="text-2xl font-semibold mb-2">{post.title}</h2>
               <p>{post.body}</p>
