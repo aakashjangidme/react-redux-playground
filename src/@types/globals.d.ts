@@ -1,17 +1,4 @@
 /**
- * Module declaration for SVG files.
- * This allows importing SVG files as React components.
- */
-declare module '*.svg' {
-    /**
-     * React component type for SVG files.
-     * This component accepts SVG attributes and renders the SVG.
-     */
-    const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>
-    export default content
-}
-
-/**
  * Interface for custom serialized errors.
  * Provides additional fields to standardize error information.
  */
@@ -24,4 +11,17 @@ interface CustomSerializedError {
     stack?: string
     /** An optional error code */
     code?: string
+}
+
+type FetchStatus = 'idle' | 'pending' | 'fulfilled' | 'rejected'
+
+interface FetchDataParams {
+    endpoint: string
+    params?: Record<string, any>
+}
+
+interface GenericState<T> {
+    data: T | null
+    status: FetchStatus
+    error: string | null
 }

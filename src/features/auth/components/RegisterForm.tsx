@@ -6,7 +6,7 @@ import TextField from 'src/components/TextField/TextField'
 import { LockOutlinedIcon } from 'src/components/Icons/LockOutlinedIcon'
 
 interface RegisterFormProps {
-    onSubmit: (data: { email: string; password: string }) => void
+    onSubmit: (data: AuthRegisterProps) => void
     loading: boolean
     error: string | null
 }
@@ -17,6 +17,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit, loading, e
         const data = new FormData(event.currentTarget)
         onSubmit({
             email: data.get('email') as string,
+            username: data.get('email') as string,
             password: data.get('password') as string
         })
     }

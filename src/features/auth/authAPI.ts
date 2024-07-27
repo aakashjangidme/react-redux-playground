@@ -1,32 +1,23 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-// import httpClient from "../../libraries/http-client"
-import { login, logout, register, setCurrentUser } from 'src/services/authService'
+import type { LoginResponse, RegisterResponse } from 'src/services/authService'
+import AuthService from 'src/services/authService'
+import { createGenericThunk } from 'src/store/createGenericThunk'
 
-export const userLogin = createAsyncThunk('auth/login', async (credentials: { email: string; password: string }) => {
-    const response = await login(credentials.email, credentials.password)
-    await setCurrentUser(response)
-    return response
+export const userLogin = createGenericThunk<LoginResponse, AuthLoginProps>('auth/login', AuthService.login, {
+    retry: 0,
+    logError: true
 })
 
-export const userRegister = createAsyncThunk('auth/register', async (credentials: { email: string; password: string }) => {
-    const response = await register(credentials.email, credentials.password)
-    await setCurrentUser(response)
-    return response
+export const userRegister = createGenericThunk<RegisterResponse, AuthRegisterProps>('auth/register', AuthService.register, {
+    retry: 0,
+    logError: true
 })
 
-export const userLogout = createAsyncThunk('auth/logout', async () => {
-    const response = await logout()
-    await setCurrentUser(null)
-
-    return response
+export const userLogout = createGenericThunk<void, void>('auth/logout', AuthService.logout, {
+    retry: 0,
+    logError: true
 })
 
-// export const login = async (data: AuthData) => {
-//   const response = await httpClient.post("/api/auth/login", data)
-//   return response.data
-// }
-
-// export const register = async (data: AuthData) => {
-//   const response = await httpClient.post("/api/auth/register", data)
-//   return response.data
-// }
+export const userRefreshToken = createGenericThunk<LoginResponse, string>('auth/refresh-token', AuthService.refreshToken, {
+    retry: 1,
+    logError: true
+})

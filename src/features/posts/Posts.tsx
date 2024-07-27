@@ -1,7 +1,7 @@
 import Alert from 'src/components/Alert'
 import Spinner from 'src/components/Spinner/Spinner'
 
-import { useData } from '../base/useData'
+import { useData } from 'src/store/useData'
 import { retrievePosts } from './postsAPI'
 import { selectPosts, selectPostsStatus, selectPostsError } from './postsSelectors'
 

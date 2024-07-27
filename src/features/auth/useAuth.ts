@@ -1,37 +1,26 @@
-import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'src/store/hooks'
 import type { RootState } from 'src/store/store'
-import { userLogin, userRegister } from './authAPI'
+import { userLogin, userLogout, userRefreshToken, userRegister } from './authAPI'
+
+import { useMemo } from 'react'
 
 export const useAuth = () => {
-    const navigate = useNavigate()
-    const { state } = useLocation()
     const dispatch = useAppDispatch()
-    const { loading, error } = useAppSelector((state: RootState) => state.auth)
-    const isAuthenticated = useAppSelector((state: RootState) => state.auth.isAuthenticated)
+    const data = useAppSelector((state: RootState) => state.auth.data)
+    const status = useAppSelector((state: RootState) => state.auth.status)
+    const error = useAppSelector((state: RootState) => state.auth.error)
 
-    const login = async (email: string, password: string) => {
-        try {
-            await dispatch(userLogin({ email, password }))
-            // Handle success, e.g., redirect to dashboard
-            if (state?.from) {
-                navigate(state?.from)
-            } else {
-                navigate('/')
-            }
-        } catch (error) {
-            // Handle error, e.g., show error message
-        }
-    }
+    const loading = useMemo(() => status === 'idle' || status === 'pending', [status])
 
-    const register = async (email: string, password: string) => {
-        try {
-            await dispatch(userRegister({ email, password }))
-            // Handle success, e.g., redirect to dashboard
-        } catch (error) {
-            // Handle error, e.g., show error message
-        }
-    }
+    const isAuthenticated = useAppSelector((state: RootState) => state.auth.data?.accessToken !== null)
 
-    return { login, register, loading, error, isAuthenticated }
+    const loginUser = (credentials: AuthLoginProps) => dispatch(userLogin(credentials))
+    const registerUser = (credentials: AuthRegisterProps) => dispatch(userRegister(credentials))
+    const logoutUser = () => dispatch(userLogout())
+    const refreshAuthToken = (token: string) => dispatch(userRefreshToken(token))
+
+    // #TODO: how to check if a user is already loggedIn, and redirect them?
+    // #TODO: how to listen to the current authentication status?
+
+    return { data, status, error, loading, isAuthenticated, loginUser, logoutUser, registerUser, refreshAuthToken }
 }

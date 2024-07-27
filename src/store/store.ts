@@ -4,9 +4,11 @@ import { combineSlices, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import errorHandler from '../middleware/errorHandler'
 import { authSlice } from '../features/auth/authSlice'
+import themeSlice from './theme'
+
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
-const rootReducer = combineSlices(postSlice, authSlice)
+const rootReducer = combineSlices(postSlice, authSlice, themeSlice)
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>
 

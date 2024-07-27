@@ -1,56 +1,85 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { userLogin, userLogout, userRegister } from './authAPI'
-import { getCurrentUser } from 'src/services/authService'
+import { createGenericSlice } from 'src/store/createGenericSlice'
+import { userLogin, userLogout, userRefreshToken } from './authAPI'
+import TokenService from 'src/services/tokenService'
 
-const initialState: AuthState = {
-    isAuthenticated: getCurrentUser() !== null || getCurrentUser() !== undefined,
-    loading: false,
+const initialState: GenericState<AuthState> = {
+    data: {
+        accessToken: TokenService.getAccessToken(),
+        refreshToken: TokenService.getRefreshToken()
+    },
+    status: 'idle',
     error: null
 }
 
-export const authSlice = createSlice({
-    name: 'auth',
-    initialState,
-    reducers: {},
+export const authSlice = createGenericSlice({
+    sliceName: 'auth',
+    defaultState: initialState.data,
+    reducers: {
+        setTokens(state, action) {
+            state.data = action.payload
+
+            TokenService.setAccessToken(action.payload.accessToken)
+            TokenService.setRefreshToken(action.payload.refreshToken)
+        },
+        clearTokens(state) {
+            state.data = initialState.data
+
+            TokenService.setAccessToken(null)
+            TokenService.setRefreshToken(null)
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(userLogin.pending, (state) => {
-                state.loading = true
+                state.status = 'pending'
                 state.error = null
             })
             .addCase(userLogin.fulfilled, (state, action) => {
-                state.loading = false
-                state.isAuthenticated = true
+                state.data = action.payload
+                state.status = 'fulfilled'
+                state.error = null
+
+                TokenService.setAccessToken(action.payload.accessToken)
+                TokenService.setRefreshToken(action.payload.refreshToken)
             })
             .addCase(userLogin.rejected, (state, action) => {
-                state.loading = false
-                state.error = action.error.message || 'Failed to sign in'
-            })
-            .addCase(userRegister.pending, (state) => {
-                state.loading = true
-                state.error = null
-            })
-            .addCase(userRegister.fulfilled, (state, action) => {
-                state.loading = false
-                state.isAuthenticated = true
-            })
-            .addCase(userRegister.rejected, (state, action) => {
-                state.loading = false
-                state.error = action.error.message || 'Failed to register'
+                state.status = 'rejected'
+                state.error = action.payload?.message || null
             })
             .addCase(userLogout.pending, (state) => {
-                state.loading = true
+                state.status = 'pending'
                 state.error = null
             })
             .addCase(userLogout.fulfilled, (state) => {
-                state.loading = false
-                state.isAuthenticated = false
+                state.data = initialState.data
+                state.status = 'fulfilled'
+                state.error = null
+
+                TokenService.setAccessToken(null)
+                TokenService.setRefreshToken(null)
             })
             .addCase(userLogout.rejected, (state, action) => {
-                state.loading = false
-                state.error = action.error.message || 'Failed to register'
+                state.status = 'rejected'
+                state.error = action.payload?.message || null
+            })
+            .addCase(userRefreshToken.pending, (state) => {
+                state.status = 'pending'
+                state.error = null
+            })
+            .addCase(userRefreshToken.fulfilled, (state, action) => {
+                state.data = action.payload
+                state.status = 'fulfilled'
+                state.error = null
+
+                TokenService.setAccessToken(action.payload.accessToken)
+                TokenService.setRefreshToken(action.payload.refreshToken)
+            })
+            .addCase(userRefreshToken.rejected, (state, action) => {
+                state.status = 'rejected'
+                state.error = action.payload?.message || action.error.message || 'Failed to retrieve posts'
             })
     }
 })
 
+export const { setTokens, clearTokens } = authSlice.actions
 export default authSlice.reducer

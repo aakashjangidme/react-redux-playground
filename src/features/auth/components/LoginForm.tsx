@@ -5,7 +5,7 @@ import { LockOutlinedIcon } from 'src/components/Icons/LockOutlinedIcon'
 import TextField from 'src/components/TextField'
 
 interface LoginFormProps {
-    onSubmit: (data: { email: string; password: string }) => void
+    onSubmit: (data: AuthLoginProps) => void
     loading: boolean
     error: string | null
 }
@@ -15,7 +15,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, loading, error }
         event.preventDefault()
         const data = new FormData(event.currentTarget)
         onSubmit({
-            email: data.get('email') as string,
+            username: data.get('email') as string,
             password: data.get('password') as string
         })
     }

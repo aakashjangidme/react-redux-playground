@@ -8,6 +8,8 @@ import { lazy } from 'react'
 import Loadable from '../components/Lazy'
 import ProtectedLayout from '../components/Layout/ProtectedLayout'
 import { ROUTES } from './routes-constants'
+import navMenuItems from 'src/config/navMenuItems'
+import sideMenuItems from 'src/config/sideMenuItems'
 
 const NotFoundPage = Loadable(lazy(() => import('../components/NotFound/NotFoundDefaultPage')))
 const DashboardHomePage = Loadable(lazy(() => import('../features/dashboard/pages')))
@@ -20,7 +22,7 @@ const PrivateRoutes: RouteObject = {
     children: [
         {
             path: ROUTES.DASHBOARD_ROUTE,
-            element: <DashboardLayout />,
+            element: <DashboardLayout dashboardBranding={{ title: 'DashboardX' }} navMenuItems={navMenuItems} sideMenuItems={sideMenuItems} />,
             children: [{ index: true, element: <DashboardHomePage /> }]
         }
     ]

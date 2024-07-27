@@ -2,11 +2,6 @@ import type { ActionReducerMapBuilder, SliceCaseReducers, ValidateSliceCaseReduc
 import { createSlice } from '@reduxjs/toolkit'
 
 // Base state interface
-export interface GenericState<T> {
-    data: T | null
-    status: FetchStatus
-    error: string | null
-}
 
 // Interface for the properties required to create a generic slice
 interface GenericSliceProps<T, R extends SliceCaseReducers<GenericState<T>>> {
@@ -23,7 +18,7 @@ interface GenericSliceProps<T, R extends SliceCaseReducers<GenericState<T>>> {
     /**
      * Reducers for the slice. Optional.
      */
-    reducers?: ValidateSliceCaseReducers<GenericState<T>, R>
+    reducers: ValidateSliceCaseReducers<GenericState<T>, R>
 
     /**
      * Extra reducers for the slice. Optional.

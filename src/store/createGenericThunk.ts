@@ -13,9 +13,9 @@ import logger from 'src/utils/logger'
  *
  * @returns An `AsyncThunk` for handling API calls with common error and success handling.
  */
-export const createGenericThunk = <T>(
+export const createGenericThunk = <T, P>(
     typePrefix: string,
-    apiCall: () => Promise<T>,
+    apiCall: (arg: P) => Promise<T>,
     options?: {
         retry?: number
         logError?: boolean
@@ -23,11 +23,11 @@ export const createGenericThunk = <T>(
 ) => {
     const { retry = 0, logError = true } = options || {}
 
-    return createAsyncThunk<T, void, { rejectValue: CustomSerializedError }>(typePrefix, async (_, { rejectWithValue }) => {
+    return createAsyncThunk<T, P, { rejectValue: CustomSerializedError }>(typePrefix, async (arg, { rejectWithValue }) => {
         let attempt = 0
         while (attempt <= retry) {
             try {
-                const response = await apiCall()
+                const response = await apiCall(arg)
                 return response
             } catch (error) {
                 // Handle errors

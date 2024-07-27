@@ -1,14 +1,31 @@
 import { useAuth } from '../useAuth'
 import { LoginForm } from '../components/LoginForm'
+import { useLocation, useNavigate } from 'react-router-dom'
+import useUpdateEffect from 'src/store/useUpdateEffect'
 
 const LoginPage: React.FC = () => {
-    const { login, loading, error } = useAuth()
+    const { loginUser, status, error, isAuthenticated } = useAuth()
 
-    const handleSubmit = (data: { email: string; password: string }) => {
-        login(data.email, data.password)
+    const navigate = useNavigate()
+
+    const { state } = useLocation()
+
+    const handleSubmit = (data: AuthLoginProps) => {
+        loginUser(data)
     }
 
-    return <LoginForm onSubmit={handleSubmit} loading={loading} error={error} />
+    useUpdateEffect(() => {
+        console.log({ isAuthenticated, state })
+        if (isAuthenticated) {
+            if (state?.from) {
+                navigate(state?.from)
+            } else {
+                navigate('/')
+            }
+        }
+    }, [isAuthenticated, navigate, state])
+
+    return <LoginForm onSubmit={handleSubmit} loading={status === 'pending'} error={error} />
 }
 
 export default LoginPage

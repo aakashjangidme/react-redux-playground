@@ -7,7 +7,9 @@
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"]
-        }
+        },
+        "typeRoots": ["./src/@types"]
+        // "types": ["./src/**/*.d.ts"]
     },
-    "include": ["vite.config.ts", "src/@types"]
+    "include": ["vite.config.ts", "./src/**/*.d.ts"]
 }

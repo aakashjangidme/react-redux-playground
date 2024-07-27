@@ -6,6 +6,8 @@ import type { RouteObject } from 'react-router-dom'
 import DefaultLayout from '../components/Layout/DefaultLayout'
 import DashboardLayout from '../components/Layout/DashboardLayout'
 import { ROUTES } from './routes-constants'
+import navMenuItems from 'src/config/navMenuItems'
+import sideMenuItems from 'src/config/sideMenuItems'
 
 // Lazy load the authentication pages
 const AuthLogin = Loadable(lazy(() => import('../features/auth/pages/login')))
@@ -32,7 +34,7 @@ const PublicRoutes: RouteObject = {
         },
         {
             path: '',
-            element: <DashboardLayout />,
+            element: <DashboardLayout dashboardBranding={{ title: 'DashboardX' }} navMenuItems={navMenuItems} sideMenuItems={sideMenuItems} />,
             children: [{ index: true, element: <DashboardHomePage /> }]
         }
     ]

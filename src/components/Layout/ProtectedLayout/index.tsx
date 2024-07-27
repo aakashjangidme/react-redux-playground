@@ -5,17 +5,14 @@ import ErrorBoundary from 'src/components/ErrorBoundry'
 import logger from 'src/utils/logger'
 
 const ProtectedLayout = () => {
-    const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
+    const isAuthenticated = useAppSelector((state) => state.auth.data?.accessToken !== null)
 
-    const location = useLocation()
+    const { pathname } = useLocation()
 
-    logger.log('ProtectedRoute::isAuthenticated', isAuthenticated)
-    logger.log('ProtectedRoute::pathname', location)
+    logger.log('ProtectedLayout', { isAuthenticated, pathname })
 
     if (!isAuthenticated) {
-        const params = new URLSearchParams()
-        params.set('from', location.pathname)
-        return <Navigate to={'/login?' + params.toString()} />
+        return <Navigate to={'/login'} state={{ from: pathname }} replace />
     }
 
     return (
