@@ -1,51 +1,44 @@
-import { LOG_LEVEL } from "src/config/environment"
-
+import { LOG_LEVEL } from 'src/config/environment'
 
 /** Signature of a logging function */
 export interface LogFn {
-  (message?: any, ...optionalParams: any[]): void
+    (message?: any, ...optionalParams: any[]): void
 }
 
 /** Basic logger interface */
 export interface Logger {
-  log: LogFn
-  warn: LogFn
-  error: LogFn
+    debug: LogFn
+    log: LogFn
+    warn: LogFn
+    error: LogFn
 }
 
 /** Log levels */
-export type LogLevel = 'log' | 'warn' | 'error'
+export type LogLevel = 'debug' | 'log' | 'warn' | 'error'
 
-const NO_OP: LogFn = (message?: any, ...optionalParams: any[]) => {}
+const NO_OP: LogFn = () => {}
+
+const logWithStyle =
+    (level: LogLevel, color: string) =>
+    (message?: any, ...optionalParams: any[]) => {
+        console.log(`%c[${level}] ${message}`, `color: ${color}`, ...optionalParams)
+    }
 
 /** Logger which outputs to the browser console */
 export class ConsoleLogger implements Logger {
-  readonly log: LogFn
-  readonly warn: LogFn
-  readonly error: LogFn
+    readonly debug: LogFn
+    readonly log: LogFn
+    readonly warn: LogFn
+    readonly error: LogFn
 
-  constructor(options?: { level?: LogLevel }) {
-    const { level } = options || {}
+    constructor(options?: { level?: LogLevel }) {
+        const { level } = options || {}
 
-    this.error = console.error.bind(console)
-
-    if (level === 'error') {
-      this.warn = NO_OP
-      this.log = NO_OP
-
-      return
+        this.error = logWithStyle('error', 'red')
+        this.warn = level === 'error' ? NO_OP : logWithStyle('warn', 'orange')
+        this.log = level === 'warn' || level === 'error' ? NO_OP : logWithStyle('log', 'yellow')
+        this.debug = level === 'debug' || level === 'log' || level === 'warn' || level === 'error' ? NO_OP : logWithStyle('debug', 'gray')
     }
-
-    this.warn = console.warn.bind(console)
-
-    if (level === 'warn') {
-      this.log = NO_OP
-
-      return
-    }
-
-    this.log = console.log.bind(console)
-  }
 }
 
 const logger = new ConsoleLogger({ level: LOG_LEVEL })

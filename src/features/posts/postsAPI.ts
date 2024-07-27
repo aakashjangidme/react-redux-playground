@@ -1,16 +1,24 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import type { PostItem } from './types'
-import httpClient from 'src/libraries/http-client'
+import PostService from 'src/services/postService'
+import { createGenericThunk } from '../base/genericThunk'
 
-// Async thunk for retrieving the post data
-export const retrievePosts = createAsyncThunk<PostItem[], void, { rejectValue: string }>(
-  'posts/retrieve',
-  async (_, thunkAPI) => {
+export const retrievePosts = createGenericThunk<PostItem[]>('posts/retrieve', PostService.fetchPosts, {
+    retry: 1, // Retry up to 1 times
+    logError: true // Enable error logging
+})
+
+/*
+Async thunk for retrieving the post data
+export const retrievePosts = createAsyncThunk<PostItem[], void, { rejectValue: CustomSerializedError }>('posts/retrieve', async (_, thunkAPI) => {
     try {
-      const res = await httpClient.get('/posts')
-      return res.data as PostItem[]
+        // Fetch posts from the API
+        const response = await httpClient.get<PostItem[]>('/posts')
+        // Return the data directly from the response
+        return response
     } catch (error) {
-      return thunkAPI.rejectWithValue('Failed to fetch issues.')
+        // Log the error and return a custom serialized error
+        const serializedError = handleHttpError(error)
+        logger.error('retrievePosts::handleHttpError', serializedError)
+        return thunkAPI.rejectWithValue(serializedError)
     }
-  },
-)
+})
+*/

@@ -9,16 +9,16 @@ import { useEffect, useRef } from 'react'
  * @param deps - Dependency array for the effect
  */
 const useUpdateEffect = (effect: EffectCallback, deps: DependencyList = []): void => {
-  const isFirstRender: MutableRefObject<boolean> = useRef(true)
+    const isFirstRender: MutableRefObject<boolean> = useRef(true)
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false
-      return
-    }
-    return effect()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps)
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false
+            return
+        }
+        return effect()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, deps)
 }
 
 export default useUpdateEffect

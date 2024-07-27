@@ -1,15 +1,15 @@
 interface AuthState {
-  isAuthenticated: boolean
-  loading: boolean
-  error: string | null
+    isAuthenticated: boolean
+    loading: boolean
+    error: string | null
 }
 
 interface AuthData {
-  email: string
-  password: string
+    email: string
+    password: string
 }
 
 interface User {
-  id: string
-  email: string
+    id: string
+    email: string
 }
