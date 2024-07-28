@@ -2,10 +2,11 @@
     "extends": ["eslint:recommended", "react-app", "plugin:react/jsx-runtime", "prettier", "plugin:path/recommended"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": { "project": true, "tsconfigRootDir": "./" },
-    "plugins": ["@typescript-eslint"],
+    "plugins": ["@typescript-eslint", "react-refresh"],
     "root": true,
     "ignorePatterns": ["dist"],
     "rules": {
+        "react-refresh/only-export-components": "warn",
         "@typescript-eslint/naming-convention": [
             "warn",
             {

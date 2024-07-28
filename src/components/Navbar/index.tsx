@@ -41,7 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ branding, menuItems }) => {
         logoutUser()
     }
 
-    const renderMenuItem = (item: NavMenuItem, isSubItem: boolean = false) => {
+    const renderMenuItem = (item: NavMenuItem) => {
         const activeClassName = 'block py-2 px-2 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500'
         const defaultClassName =
             'block py-2 px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
@@ -64,6 +64,7 @@ const Navbar: React.FC<NavbarProps> = ({ branding, menuItems }) => {
                                 <p className="text-sm text-gray-900 dark:text-white">{user.name}</p>
                                 <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300">{user.email}</p>
                             </div>
+
                             <ul className="py-1">
                                 {item.menu?.map((subItem, index) => (
                                     <React.Fragment key={index}>

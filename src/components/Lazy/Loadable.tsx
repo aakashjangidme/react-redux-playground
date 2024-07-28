@@ -7,8 +7,6 @@ import Loader from './Loader'
 
 const Loadable =
     // eslint-disable-next-line @typescript-eslint/naming-convention
-
-
         <P extends object>(Component: ComponentType<P>): React.FC<P> =>
         (props: P) => (
             <Suspense fallback={<Loader />}>
