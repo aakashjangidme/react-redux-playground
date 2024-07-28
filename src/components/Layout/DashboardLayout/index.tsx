@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom'
 
-import type { SideMenuItem } from 'src/components/Sidebar'
-import Sidebar from 'src/components/Sidebar'
-import Navbar from 'src/components/Navbar'
-import type { Branding, NavMenuItem } from 'src/components/Navbar/interfaces'
+import type { SideMenuItem } from '@/components/Sidebar'
+import Sidebar from '@/components/Sidebar'
+import Navbar from '@/components/Navbar'
+import type { Branding, NavMenuItem } from '@/components/Navbar/interfaces'
 
 interface DashboardLayoutProps {
     dashboardBranding: Branding

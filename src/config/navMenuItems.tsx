@@ -1,6 +1,6 @@
-import Icon from 'src/components/Icon'
 import { mdiAccountTieHat, mdiCog, mdiLogout } from '@mdi/js'
-import type { NavMenuItem } from 'src/components/Navbar/interfaces'
+import type { NavMenuItem } from '@/components/Navbar/interfaces'
+import Icon from '@/components/Icon'
 
 const navMenuItems: NavMenuItem[] = [
     { label: 'Home', href: '/' },

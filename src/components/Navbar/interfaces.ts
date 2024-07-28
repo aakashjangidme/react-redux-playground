@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react'
-
 export interface Branding {
     logo?: Logo
     title: string
@@ -13,8 +11,8 @@ export interface NavItem {
 }
 
 export interface NavMenuItem extends NavItem {
-    leading?: ReactNode // leading/trailing icons maybe?
-    trailing?: ReactNode
+    leading?: JSX.Element // leading/trailing icons maybe?
+    trailing?: JSX.Element
     menu?: NavMenuItem[]
     divider?: boolean
 }

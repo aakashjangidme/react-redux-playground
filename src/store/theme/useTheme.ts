@@ -1,6 +1,6 @@
-import { setDarkMode, ThemeMode } from './themeSlice'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import type { RootState } from '../store'
+import { setDarkMode, ThemeMode } from './themeSlice'
 
 /**
  * Custom hook to manage and toggle the theme (dark mode) state.

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import type React from 'react'
 import { Component } from 'react'
-import logger from 'src/utils/logger'
+import logger from '@/utils/logger'
 
 interface ErrorBoundaryProps {
     children: ReactNode

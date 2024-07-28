@@ -1,9 +1,9 @@
 import type { AxiosRequestConfig, AxiosRequestHeaders, AxiosError, AxiosResponse, AxiosInstance, HttpResponseData } from 'axios'
 import axios from 'axios'
+import TokenService from '@/services/tokenService'
+import logger from '@/utils/logger'
 import { toCamelCase, toSnakeCase } from './transformCase'
 import { handleHttpError, HttpError } from './utils'
-import TokenService from 'src/services/tokenService'
-import logger from 'src/utils/logger'
 
 // Axios instance configuration
 const httpClient: AxiosInstance = axios.create({

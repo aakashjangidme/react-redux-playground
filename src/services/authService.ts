@@ -1,4 +1,4 @@
-import httpClient from 'src/libraries/http-client'
+import httpClient from '@/libraries/http-client'
 
 export interface AuthResponse {
     accessToken: string

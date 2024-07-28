@@ -1,8 +1,7 @@
-import { useAppDispatch, useAppSelector } from 'src/store/hooks'
-import type { RootState } from 'src/store/store'
-import { userLogin, userLogout, userRefreshToken, userRegister } from './authAPI'
-
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import type { RootState } from '@/store/store'
 import { useMemo } from 'react'
+import { userLogin, userLogout, userRefreshToken, userRegister } from './authAPI'
 
 export const useAuth = () => {
     const dispatch = useAppDispatch()

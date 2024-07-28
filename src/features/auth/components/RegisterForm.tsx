@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import Alert from 'src/components/Alert'
-import Button from 'src/components/Button'
-import TextField from 'src/components/TextField/TextField'
+import Alert from '@/components/Alert'
+import Button from '@/components/Button'
+import TextField from '@/components/TextField/TextField'
 
-import { LockOutlinedIcon } from 'src/components/Icons/LockOutlinedIcon'
+import { LockOutlinedIcon } from '@/components/Icons/LockOutlinedIcon'
 
 interface RegisterFormProps {
     onSubmit: (data: AuthRegisterProps) => void

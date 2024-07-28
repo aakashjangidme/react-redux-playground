@@ -1,6 +1,6 @@
-import { createGenericSlice } from 'src/store/createGenericSlice'
+import { createGenericSlice } from '@/store/createGenericSlice'
+import TokenService from '@/services/tokenService'
 import { userLogin, userLogout, userRefreshToken } from './authAPI'
-import TokenService from 'src/services/tokenService'
 
 const initialState: GenericState<AuthState> = {
     data: {

@@ -1,4 +1,4 @@
-import Posts from 'src/features/posts/Posts'
+import Posts from '@/features/posts/Posts'
 
 const DashboardHomePage = () => {
     return (

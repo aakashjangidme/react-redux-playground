@@ -1,7 +1,7 @@
-import { postSlice } from '../features/posts/postsSlice'
 import type { Action, ThunkAction } from '@reduxjs/toolkit'
 import { combineSlices, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
+import { postSlice } from '../features/posts/postsSlice'
 import errorHandler from '../middleware/errorHandler'
 import { authSlice } from '../features/auth/authSlice'
 import themeSlice from './theme'

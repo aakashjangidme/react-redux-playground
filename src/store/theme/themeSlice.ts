@@ -1,6 +1,6 @@
-import LocalStorageService from 'src/libraries/LocalStorage'
+import LocalStorageService from '@/libraries/LocalStorage'
+import logger from '@/utils/logger'
 import { createGenericSlice } from '../createGenericSlice'
-import logger from 'src/utils/logger'
 
 export enum ThemeMode {
     Light = 'light',

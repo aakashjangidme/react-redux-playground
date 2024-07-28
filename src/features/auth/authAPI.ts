@@ -1,6 +1,6 @@
-import type { LoginResponse, RegisterResponse } from 'src/services/authService'
-import AuthService from 'src/services/authService'
-import { createGenericThunk } from 'src/store/createGenericThunk'
+import type { LoginResponse, RegisterResponse } from '@/services/authService'
+import AuthService from '@/services/authService'
+import { createGenericThunk } from '@/store/createGenericThunk'
 
 export const userLogin = createGenericThunk<LoginResponse, AuthLoginProps>('auth/login', AuthService.login, {
     retry: 0,

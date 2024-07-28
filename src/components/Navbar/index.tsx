@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { mdiChevronUp, mdiChevronDown } from '@mdi/js'
 import Icon from '../Icon'
 import type { NavBranding, NavMenuItem, NavLabel, NavUser } from './interfaces'
-import { useAuth } from 'src/features/auth/useAuth'
+import { useAuth } from '@/features/auth/useAuth'
 
 interface NavbarProps {
     branding: NavBranding

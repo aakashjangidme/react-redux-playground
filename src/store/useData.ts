@@ -1,8 +1,8 @@
 // useData.ts
-import { useAppDispatch, useAppSelector } from 'src/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { useMemo } from 'react'
-import type { RootState } from 'src/store/store'
-import useUpdateEffect from 'src/store/useUpdateEffect'
+import type { RootState } from '@/store/store'
+import useUpdateEffect from '@/store/useUpdateEffect'
 
 // Define properties for the useData hook
 interface UseDataProps<T> {

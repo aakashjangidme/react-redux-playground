@@ -1,5 +1,5 @@
 // postsSelectors.ts
-import type { RootState } from 'src/store/store'
+import type { RootState } from '@/store/store'
 
 // Define selectors for posts
 export const selectPosts = (state: RootState) => state.posts.data

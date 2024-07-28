@@ -4,12 +4,12 @@
         "module": "ESNext",
         "moduleResolution": "bundler",
         "allowSyntheticDefaultImports": true,
+
+        "typeRoots": ["./src/@types"],
         "baseUrl": ".",
         "paths": {
-            "src/*": ["./src/*"]
-        },
-        "typeRoots": ["./src/@types"]
-        // "types": ["./src/**/*.d.ts"]
+            "@/*": ["./src/*"]
+        }
     },
     "include": ["vite.config.ts", "./src/**/*.d.ts"]
 }

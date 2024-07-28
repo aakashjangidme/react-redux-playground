@@ -6,7 +6,10 @@
     "root": true,
     "ignorePatterns": ["dist"],
     "rules": {
+        "path/no-relative-imports": "error",
+        "import/order": "error",
         "react-refresh/only-export-components": "warn",
+
         "@typescript-eslint/naming-convention": [
             "warn",
             {

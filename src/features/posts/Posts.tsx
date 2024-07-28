@@ -1,9 +1,9 @@
-import Alert from 'src/components/Alert'
-import Spinner from 'src/components/Spinner/Spinner'
-
-import { useData } from 'src/store/useData'
 import { retrievePosts } from './postsAPI'
 import { selectPosts, selectPostsStatus, selectPostsError } from './postsSelectors'
+import Alert from '@/components/Alert'
+import Spinner from '@/components/Spinner/Spinner'
+
+import { useData } from '@/store/useData'
 
 const Posts: React.FC = () => {
     const {

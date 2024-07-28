@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import Alert from 'src/components/Alert'
-import Button from 'src/components/Button'
-import { LockOutlinedIcon } from 'src/components/Icons/LockOutlinedIcon'
-import TextField from 'src/components/TextField'
+import Alert from '@/components/Alert'
+import Button from '@/components/Button'
+import { LockOutlinedIcon } from '@/components/Icons/LockOutlinedIcon'
+import TextField from '@/components/TextField'
 
 interface LoginFormProps {
     onSubmit: (data: AuthLoginProps) => void

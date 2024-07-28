@@ -1,5 +1,5 @@
-import ErrorBoundary from 'src/components/ErrorBoundry'
 import { Outlet } from 'react-router-dom'
+import ErrorBoundary from '@/components/ErrorBoundry'
 
 // ==============================|| MINIMAL LAYOUT ||============================== //
 

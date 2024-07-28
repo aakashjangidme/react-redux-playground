@@ -1,5 +1,5 @@
-import { createGenericThunk } from 'src/store/createGenericThunk'
-import PostService from 'src/services/postService'
+import { createGenericThunk } from '@/store/createGenericThunk'
+import PostService from '@/services/postService'
 
 export const retrievePosts = createGenericThunk<PostItem[], void>('posts/retrieve', PostService.fetchPosts, {
     retry: 1, // Retry up to 1 times

@@ -1,7 +1,8 @@
-import { useAuth } from '../useAuth'
-import { LoginForm } from '../components/LoginForm'
 import { useLocation, useNavigate } from 'react-router-dom'
-import useUpdateEffect from 'src/store/useUpdateEffect'
+import { useAuth } from '../useAuth'
+
+import { LoginForm } from '../components/LoginForm'
+import useUpdateEffect from '@/store/useUpdateEffect'
 
 const LoginPage: React.FC = () => {
     const { loginUser, status, error, isAuthenticated } = useAuth()
