@@ -1,49 +1,41 @@
-import LocalStorageService from '@/libraries/LocalStorage'
-import logger from '@/utils/logger'
 import { createGenericSlice } from '../createGenericSlice'
+import LocalStorageService from '@/libraries/LocalStorage'
+import logger from '@/lib/utils/logger'
 
-export enum ThemeMode {
-    Light = 'light',
-    Dark = 'dark'
+export type Theme = 'dark' | 'light' | 'system'
+
+type ThemeState = {
+    theme: Theme
 }
 
-export interface ThemeState {
-    mode: ThemeMode
+const storageKey = 'app-ui-theme'
+
+const defaultTheme: Theme = 'system'
+
+const getInitialTheme = (): Theme => {
+    return LocalStorageService.get<Theme>(storageKey) || defaultTheme
 }
 
-const defaultThemeMode = LocalStorageService.get<ThemeMode>('themeMode') ? LocalStorageService.get<ThemeMode>('themeMode') : ThemeMode.Light
-
-logger.log('defaultThemeMode', defaultThemeMode)
+logger.log('getInitialTheme::', getInitialTheme())
 
 const initialState: ThemeState = {
-    mode: defaultThemeMode ?? ThemeMode.Light
+    theme: getInitialTheme()
 }
 
 export const themeSlice = createGenericSlice({
     sliceName: 'theme',
-    defaultState: initialState.mode,
+    defaultState: initialState.theme,
     reducers: {
-        setDarkMode: (state, action) => {
-            console.log(action.payload)
-            if (action.payload === null) {
-                // Toggle logic
-                state.data = state.data === ThemeMode.Light ? ThemeMode.Dark : ThemeMode.Light
-            } else {
-                // Set explicitly
-                state.data = action.payload ? ThemeMode.Dark : ThemeMode.Light
-            }
+        setTheme: (state, action) => {
+            logger.log(action.payload)
+            state.data = action.payload
 
-            if (typeof document !== 'undefined') {
-                document.body.classList[state.data === ThemeMode.Dark ? 'add' : 'remove']('dark-scrollbars')
-                document.documentElement.classList[state.data === ThemeMode.Dark ? 'add' : 'remove']('dark', 'dark-scrollbars-compat')
-            }
-
-            LocalStorageService.set<ThemeMode>('themeMode', state.data)
+            LocalStorageService.set<Theme>(storageKey, action.payload)
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { setDarkMode } = themeSlice.actions
+export const { setTheme } = themeSlice.actions
 
 export default themeSlice.reducer

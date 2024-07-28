@@ -1,4 +1,4 @@
-import type { LogLevel } from '../utils/logger'
+import type { LogLevel } from '../lib/utils/logger'
 
 /** The App environment */
 export type Environment = 'development' | 'production'

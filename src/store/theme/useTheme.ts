@@ -1,6 +1,9 @@
 import { useAppDispatch, useAppSelector } from '../hooks'
 import type { RootState } from '../store'
-import { setDarkMode, ThemeMode } from './themeSlice'
+import useUpdateEffect from '../useUpdateEffect'
+import type { Theme } from './themeSlice'
+import { setTheme } from './themeSlice'
+import logger from '@/lib/utils/logger'
 
 /**
  * Custom hook to manage and toggle the theme (dark mode) state.
@@ -8,34 +11,54 @@ import { setDarkMode, ThemeMode } from './themeSlice'
  * This hook provides the current theme state and a function to toggle the theme.
  *
  * @returns {Object} An object containing the current theme state and a function to toggle the theme.
- * @returns {boolean} isEnabled - Indicates whether dark mode is enabled.
- * @returns {Function} toggleTheme - Function to toggle the dark mode state. It accepts an optional boolean parameter to explicitly set the dark mode state.
+ * @returns {Theme} theme - The current theme state.
+ * @returns {boolean} isDarkModeEnabled - Indicates whether dark mode is enabled.
+ * @returns {Function} setAppTheme - Function to set the theme state.
  *
  * @example
- * const { isEnabled, toggleTheme } = useTheme()
+ * const { theme, isDarkModeEnabled, setAppTheme } = useTheme()
  *
  * // Toggle the theme
- * toggleTheme(null)
+ * setAppTheme('dark')
  *
  * // Explicitly set dark mode
- * toggleTheme(true)
+ * setAppTheme('dark')
  *
  * // Explicitly set light mode
- * toggleTheme(false)
+ * setAppTheme('light')
  */
 export const useTheme = () => {
     const dispatch = useAppDispatch()
 
-    const isDarkModeEnabled = useAppSelector((state: RootState) => state.theme.data === ThemeMode.Dark)
+    const theme = useAppSelector((state: RootState) => state.theme.data!)
+
+    logger.log('useTheme::theme::', theme)
+
+    const isDarkModeEnabled = theme === 'dark'
 
     /**
-     * Toggles the dark mode state.
+     * Sets the theme state.
      *
-     * @param {boolean | null} [enabled=null] - Optional parameter to explicitly set the dark mode state. If null, it toggles the current state.
+     * @param {Theme} theme - The theme to be set.
      */
-    const toggleTheme = (enabled: boolean | null = null) => {
-        dispatch(setDarkMode(enabled))
+    const setAppTheme = (theme: Theme) => {
+        dispatch(setTheme(theme))
     }
 
-    return { isDarkModeEnabled, toggleTheme }
+    useUpdateEffect(() => {
+        const root = window.document.documentElement
+
+        root.classList.remove('light', 'dark')
+
+        if (theme === 'system') {
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+
+            root.classList.add(systemTheme)
+            return
+        }
+
+        root.classList.add(theme)
+    }, [theme])
+
+    return { theme, isDarkModeEnabled, setAppTheme }
 }

@@ -1,5 +1,5 @@
 import { createGenericSlice } from '@/store/createGenericSlice'
-import logger from '@/utils/logger'
+import logger from '@/lib/utils/logger'
 import { retrievePosts } from './postsAPI'
 
 const initialState: PostItem[] = []

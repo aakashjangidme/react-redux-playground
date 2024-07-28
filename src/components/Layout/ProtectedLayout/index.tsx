@@ -2,7 +2,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAppSelector } from '@/store/hooks'
 
 import ErrorBoundary from '@/components/ErrorBoundry'
-import logger from '@/utils/logger'
+import logger from '@/lib/utils/logger'
 
 const ProtectedLayout = () => {
     const isAuthenticated = useAppSelector((state) => state.auth.data?.accessToken !== null)

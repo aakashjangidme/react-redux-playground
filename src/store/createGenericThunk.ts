@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { handleHttpError } from '@/libraries/http-client/utils'
-import logger from '@/utils/logger'
+import logger from '@/lib/utils/logger'
 
 /**
  * Create a base async thunk for making API calls with common handling for success and error cases.

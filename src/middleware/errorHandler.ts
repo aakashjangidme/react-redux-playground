@@ -1,5 +1,5 @@
 import type { Middleware } from 'redux'
-import logger from '../utils/logger'
+import logger from '../lib/utils/logger'
 
 const errorHandler: Middleware = (store) => (next) => (action) => {
     try {

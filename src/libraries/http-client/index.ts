@@ -1,7 +1,7 @@
 import type { AxiosRequestConfig, AxiosRequestHeaders, AxiosError, AxiosResponse, AxiosInstance, HttpResponseData } from 'axios'
 import axios from 'axios'
 import TokenService from '@/services/tokenService'
-import logger from '@/utils/logger'
+import logger from '@/lib/utils/logger'
 import { toCamelCase, toSnakeCase } from './transformCase'
 import { handleHttpError, HttpError } from './utils'
 

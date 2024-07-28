@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { mdiChevronUp, mdiChevronDown } from '@mdi/js'
 import Icon from '../Icon'
 import type { NavBranding, NavMenuItem, NavLabel, NavUser } from './interfaces'
+import { ModeToggle } from './mode-toggle'
 import { useAuth } from '@/features/auth/useAuth'
 
 interface NavbarProps {
@@ -162,6 +163,9 @@ const Navbar: React.FC<NavbarProps> = ({ branding, menuItems }) => {
                         <div className="flex items-center ms-3">
                             <ul className="font-medium flex items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                                 {menuItems.map((menu) => renderMenuItem(menu))}
+
+                                {/* theme toggle button */}
+                                <ModeToggle />
                             </ul>
                         </div>
                     </div>
