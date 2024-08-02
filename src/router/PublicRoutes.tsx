@@ -6,8 +6,6 @@ import Loadable from '@/components/Lazy'
 
 import DefaultLayout from '@/components/Layout/DefaultLayout'
 import DashboardLayout from '@/components/Layout/DashboardLayout'
-import sideMenuItems from '@/config/sideMenuItems'
-import navMenuItems from '@/config/navMenuItems'
 
 // Lazy load the authentication pages
 const AuthLogin = Loadable(lazy(() => import('@/features/auth/pages/login')))
@@ -34,7 +32,7 @@ const PublicRoutes: RouteObject = {
         },
         {
             path: '',
-            element: <DashboardLayout dashboardBranding={{ title: 'DashboardX' }} navMenuItems={navMenuItems} sideMenuItems={sideMenuItems} />,
+            element: <DashboardLayout />,
             children: [{ index: true, element: <DashboardHomePage /> }]
         }
     ]

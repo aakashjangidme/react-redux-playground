@@ -3,7 +3,7 @@ import Alert from '@/components/Alert'
 import Button from '@/components/Button'
 import TextField from '@/components/TextField/TextField'
 
-import { LockOutlinedIcon } from '@/components/Icons/LockOutlinedIcon'
+import LockOutlinedIcon from '@/assets/icons/LockOutlinedIcon.svg?react'
 
 interface RegisterFormProps {
     onSubmit: (data: AuthRegisterProps) => void

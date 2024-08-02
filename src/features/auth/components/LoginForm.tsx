@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Alert from '@/components/Alert'
 import Button from '@/components/Button'
-import { LockOutlinedIcon } from '@/components/Icons/LockOutlinedIcon'
+import LockOutlinedIcon from '@/assets/icons/LockOutlinedIcon.svg?react'
 import TextField from '@/components/TextField'
 
 interface LoginFormProps {

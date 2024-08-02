@@ -1,26 +1,47 @@
 import { Outlet } from 'react-router-dom'
 
-import type { SideMenuItem } from '@/components/Sidebar'
+import { useLocation } from 'react-router-dom'
+
+import { useState } from 'react'
 import Sidebar from '@/components/Sidebar'
-import Navbar from '@/components/Navbar'
-import type { Branding, NavMenuItem } from '@/components/Navbar/interfaces'
 
-interface DashboardLayoutProps {
-    dashboardBranding: Branding
-    navMenuItems: NavMenuItem[]
-    sideMenuItems: SideMenuItem[]
-}
+import Header from '@/components/Header'
+import useUpdateEffect from '@/hooks/useUpdateEffect'
 
-const DashboardLayout = ({ dashboardBranding, navMenuItems, sideMenuItems }: DashboardLayoutProps) => {
+const DashboardLayout = () => {
+    const { pathname } = useLocation()
+
+    useUpdateEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname])
+
+    const [sidebarOpen, setSidebarOpen] = useState(false)
     return (
-        <div>
-            <Navbar menuItems={navMenuItems} branding={{ ...dashboardBranding }} />
-            <Sidebar menuItems={sideMenuItems} />
-            <div className="p-4 sm:ml-64">
-                <div className="p-4 mt-14">
-                    <Outlet />
+        <div className=" dark:bg-boxdark-2 dark:text-bodydark">
+            {/* <!-- ===== Page Wrapper Start ===== --> */}
+            <div className="flex h-screen overflow-hidden">
+                {/* <!-- ===== Sidebar Start ===== --> */}
+                <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+                {/* <!-- ===== Sidebar End ===== --> */}
+
+                {/* <!-- ===== Content Area Start ===== --> */}
+                <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+                    {/* <!-- ===== Header Start ===== --> */}
+                    <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+                    {/* <!-- ===== Header End ===== --> */}
+
+                    {/* <!-- ===== Main Content Start ===== --> */}
+                    <main>
+                        <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+                            <Outlet />
+                        </div>
+                    </main>
+                    {/* <!-- ===== Main Content End ===== --> */}
                 </div>
+                {/* <!-- ===== Content Area End ===== --> */}
             </div>
+
+            {/* <!-- ===== Page Wrapper End ===== --> */}
         </div>
     )
 }

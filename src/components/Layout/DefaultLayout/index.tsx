@@ -5,11 +5,13 @@ import ErrorBoundary from '@/components/ErrorBoundry'
 
 const DefaultLayout = () => {
     return (
-        <>
-            <ErrorBoundary>
-                <Outlet />
-            </ErrorBoundary>
-        </>
+        <div className=" dark:bg-boxdark-2 dark:text-bodydark">
+            <div className="overflow-hidden">
+                <ErrorBoundary>
+                    <Outlet />
+                </ErrorBoundary>
+            </div>
+        </div>
     )
 }
 

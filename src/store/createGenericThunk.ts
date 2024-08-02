@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { handleHttpError } from '@/libraries/http-client/utils'
+import { handleHttpError } from '@/lib/HttpClient/utils'
 import logger from '@/lib/utils/logger'
 
 /**
