@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig, AxiosRequestHeaders, AxiosError, AxiosResponse, AxiosInstance, HttpResponseData } from 'axios'
+import type { AxiosError, AxiosResponse, AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, HttpResponseData } from 'axios'
 import axios from 'axios'
 import { toCamelCase, toSnakeCase } from './transformCase'
 import { handleHttpError, HttpError } from './utils'
@@ -13,18 +13,13 @@ const httpClient: AxiosInstance = axios.create({
     }
 })
 
-interface CustomAxiosRequestConfig extends AxiosRequestConfig {
-    headers: AxiosRequestHeaders
-    _retry?: boolean
-}
-
 /**
  * Refresh token on authentication failure
  * @param {AxiosError} error - Axios error
  * @returns {Promise<AxiosResponse>} - Promise with the retried request or error
  */
 const refreshTokenOnFailure = async (error: AxiosError): Promise<AxiosResponse> => {
-    const originalRequest = error.config as CustomAxiosRequestConfig
+    const originalRequest = error.config as AxiosRequestConfig
     if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true
         const refreshToken = TokenService.getRefreshToken()
@@ -38,6 +33,7 @@ const refreshTokenOnFailure = async (error: AxiosError): Promise<AxiosResponse> 
         } catch (err) {
             TokenService.setAccessToken(null)
             TokenService.setRefreshToken(null)
+            logger.error('Token refresh failed', err)
             return Promise.reject(err)
         }
     }
@@ -46,21 +42,22 @@ const refreshTokenOnFailure = async (error: AxiosError): Promise<AxiosResponse> 
 
 /**
  * Handle request success
- * @param {CustomAxiosRequestConfig} config - Axios request configuration
- * @returns {CustomAxiosRequestConfig} - Modified request configuration
+ * @param {InternalAxiosRequestConfig} request - Axios request configuration
+ * @returns {InternalAxiosRequestConfig} - Modified request configuration
  */
-const handleRequestSuccess = (config: CustomAxiosRequestConfig): CustomAxiosRequestConfig => {
-    if (config.data) {
-        config.data = toSnakeCase(config.data)
+const handleRequestSuccess = (request: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    if (request.data) {
+        request.data = toSnakeCase(request.data)
     }
+
+    request.headers['X-APP-ID'] = 'PlaygroundX'
 
     const accessToken = TokenService.getAccessToken()
     if (accessToken) {
-        // Set Authorization header only for this instance
-        config.headers.Authorization = `Bearer ${accessToken}`
+        request.headers['Authorization'] = `Bearer ${accessToken}`
     }
 
-    return config
+    return request
 }
 
 /**
@@ -77,13 +74,13 @@ const handleRequestError = (error: AxiosError): Promise<never> => {
  * @param {AxiosResponse} response - Axios response
  * @returns {any} - Transformed response data
  */
-const handleResponseSuccess = (response: AxiosResponse) => {
+const handleResponseSuccess = (response: AxiosResponse): any => {
     const responseData = response.data
 
     if (response.status >= 200 && response.status < 300) {
         return toCamelCase(responseData.data ?? responseData)
     } else {
-        throw new HttpError(responseData?.message ?? `Something went wrong, server responded with status ${response.status}`)
+        throw new HttpError(responseData?.message ?? `Server responded with status ${response.status}`)
     }
 }
 
@@ -92,20 +89,20 @@ const handleResponseSuccess = (response: AxiosResponse) => {
  * @param {AxiosError} error - Axios error
  * @returns {Promise<HttpResponseData>} - Promise rejection with error response
  */
-const handleResponseError = async (error: AxiosError) => {
+const handleResponseError = async (error: AxiosError): Promise<never> => {
     try {
         await refreshTokenOnFailure(error)
     } catch (refreshError) {
-        logger.log('handleResponseError', refreshError)
+        logger.error('Error during token refresh', refreshError)
         // If refreshing the token fails, reject with the original error
-        // TODO:: re-login at this point
+        // TODO: Implement re-login or redirect logic here
         return Promise.reject(refreshError)
     }
 
     const responseData = error.response?.data as HttpResponseData
     return Promise.reject({
         code: responseData?.code || 'SERVER_ERROR',
-        message: responseData?.message || 'Something went wrong, server did not respond with any error message.',
+        message: responseData?.message || 'Server did not respond with any error message.',
         status: responseData?.status || 500
     })
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import LocalStorageService from './index'
+import LocalStorageService from '@/lib/LocalStorage'
+
 
 type SetValue<T> = T | ((val: T) => T)
 

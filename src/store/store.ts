@@ -4,7 +4,7 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 import { postSlice } from '../features/posts/postsSlice'
 import errorHandler from '../middleware/errorHandler'
 import { authSlice } from '../features/auth/authSlice'
-import themeSlice from './theme'
+import themeSlice from '@/lib/Theme'
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.

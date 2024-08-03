@@ -37,7 +37,7 @@ export class ConsoleLogger implements Logger {
         this.error = logWithStyle('error', 'red')
         this.warn = level === 'error' ? NO_OP : logWithStyle('warn', 'orange')
         this.log = level === 'warn' || level === 'error' ? NO_OP : logWithStyle('log', 'yellow')
-        this.debug = level === 'debug' || level === 'log' || level === 'warn' || level === 'error' ? NO_OP : logWithStyle('debug', 'gray')
+        this.debug = level === 'debug' ? logWithStyle('debug', 'gray') : NO_OP
     }
 }
 

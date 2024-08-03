@@ -1,4 +1,6 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
+
 import DropdownNotification from './DropdownNotification'
 import DropdownUser from './DropdownUser'
 import DarkModeSwitcher from './DarkModeSwitcher'
@@ -8,6 +10,8 @@ interface HeaderProps {
     sidebarOpen: boolean
     setSidebarOpen: (arg0: boolean) => void
 }
+
+const MemoizedDarkModeSwitcher = React.memo(DarkModeSwitcher)
 
 const Header = ({ sidebarOpen, setSidebarOpen }: HeaderProps) => {
     return (
@@ -101,7 +105,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }: HeaderProps) => {
                 <div className="flex items-center gap-3 2xsm:gap-7">
                     <ul className="flex items-center gap-2 2xsm:gap-4">
                         {/* <!-- Dark Mode Toggler --> */}
-                        <DarkModeSwitcher />
+                        <MemoizedDarkModeSwitcher />
                         {/* <!-- Dark Mode Toggler --> */}
 
                         {/* <!-- Notification Menu Area --> */}

@@ -3,10 +3,14 @@ import { Outlet } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
 import { useState } from 'react'
+import React from 'react'
 import Sidebar from '@/components/Sidebar'
 
 import Header from '@/components/Header'
 import useUpdateEffect from '@/hooks/useUpdateEffect'
+
+const MemoizedSidebar = React.memo(Sidebar)
+const MemoizedHeader = React.memo(Header)
 
 const DashboardLayout = () => {
     const { pathname } = useLocation()
@@ -21,13 +25,13 @@ const DashboardLayout = () => {
             {/* <!-- ===== Page Wrapper Start ===== --> */}
             <div className="flex h-screen overflow-hidden">
                 {/* <!-- ===== Sidebar Start ===== --> */}
-                <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+                <MemoizedSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
                 {/* <!-- ===== Sidebar End ===== --> */}
 
                 {/* <!-- ===== Content Area Start ===== --> */}
                 <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
                     {/* <!-- ===== Header Start ===== --> */}
-                    <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+                    <MemoizedHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
                     {/* <!-- ===== Header End ===== --> */}
 
                     {/* <!-- ===== Main Content Start ===== --> */}

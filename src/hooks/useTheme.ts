@@ -1,9 +1,10 @@
 import { useCallback, useLayoutEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks'
-import type { RootState } from '../store'
+
 import type { Theme } from '../lib/Theme/themeSlice'
 import { setTheme } from '../lib/Theme/themeSlice'
 import logger from '@/lib/utils/logger'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import type { RootState } from '@/store/store'
 
 /**
  * Custom hook to manage and toggle the theme (dark mode) state.
@@ -34,23 +35,27 @@ export const useTheme = () => {
     // Memoize the function to prevent unnecessary re-renders
     const setAppTheme = useCallback(
         (theme: Theme) => {
+            console.debug('setAppTheme::theme=', theme)
             dispatch(setTheme(theme))
         },
         [dispatch]
     )
 
     useLayoutEffect(() => {
+        logger.debug('useTheme:useLayoutEffect::=', theme)
+
         const root = window.document.documentElement
+
+        // Remove old classes
         root.classList.remove('light', 'dark')
 
+        // Determine the new theme
         if (theme === 'system') {
             const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
             root.classList.add(systemTheme)
         } else {
             root.classList.add(theme)
         }
-
-        logger.log('useTheme::', theme)
     }, [theme])
 
     return { theme, isDarkModeEnabled: theme === 'dark', setAppTheme }
